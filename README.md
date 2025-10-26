@@ -36,6 +36,8 @@ Some detections samples:
 ### 3. Pool count
 São Paulo has approximately 48621 pools!
 
+The following plot shows the pool count from each of the sampled points.
+
 ![Samples](data/pool_count_distribution.png)
 
 This count was obtained through the following process:
