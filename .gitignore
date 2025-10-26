@@ -16,7 +16,6 @@ wheels/
 *.jpeg
 *.txt
 
-!models/vision/*.png
-!models/vision/*.jpg
-
+!models/
+!data/folium*
 *.TXT

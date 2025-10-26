@@ -1,6 +1,6 @@
 # How many pools are in São Paulo? 
 
-In this project we estimate the total pool count in São Paulo through Statistics, Machine Learning and satellite imagery.
+In this project we estimate the total swimming pools count in São Paulo through Statistics, Machine Learning and satellite imagery.
 
 ### 1. Data
 #### 1.1 Pool detection
@@ -23,7 +23,7 @@ Since this is a counting problem the natural way of modeling it is through an ob
 For the object detection task we chose to fine-tune YOLO v11 small due to its proven great detection capacities, small size, high throughput and ease to train.
 
 #### 2.3 Training results
-The final model was able to reach a mAP50 score of ~0.87
+The final model was able to reach a mAP50 score of ~0.878 with confidence threshold = 0.25 and iou = 0.40
 
 ![Results](./models/vision/results.png)
 
@@ -48,16 +48,26 @@ This count was obtained through the following process:
 
 5. Sum all district's pool count
 
+To better interact with the folium map, just access `data/pool_density_map.html`
+
+![Pool density](./data/folium.png)
+
+![Pool density by district](./data/folium2.png)
+
 ### 4. Statistical analysis
 
+
 ### 5. Steps to reproduce
-#### 5.1 Get stratified samples (by district)
+#### 5.1 Setup the environment
+Run `uv sync`
+
+#### 5.2 Get stratified samples (by district)
 1. Run `data/sample_districts.ipynb` to access the EDA and generate the sampled dataframes at `samples/*geojson`
 
 2. Run `data/get_region_samples.py` to generate the `unified_points.csv`
 
 3. Run `data/download_satellite_images.py` to download the satellite image tiles from the samples points
 
-4. Run `data/get_pool_count.ipynb` to access the pool count logic and visualization
+4. Run `models/train.ipynb` to train the object detector
 
-### 6. Further work
+5. Run `data/get_pool_count.ipynb` to access the pool count logic and visualization
