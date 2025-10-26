@@ -19,3 +19,7 @@ wheels/
 !models/
 !data/folium*
 *.TXT
+
+!data/pool_count_distribution.png
+!data/best_svr.png
+!data/correlation.png

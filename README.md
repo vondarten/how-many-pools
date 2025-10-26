@@ -1,6 +1,6 @@
 # How many pools are in São Paulo? 
 
-In this project we estimate the total swimming pools count in São Paulo through Statistics, Machine Learning and satellite imagery.
+This project leverages satellite imagery, computer vision and socioeconomic data to estimate the number of swimming pools in São Paulo. Our analysis reveals approximately 48621 pools across the city and explores the correlation between pool density and socioeconomic indicators.
 
 ### 1. Data
 #### 1.1 Pool detection
@@ -36,6 +36,8 @@ Some detections samples:
 ### 3. Pool count
 São Paulo has approximately 48621 pools!
 
+![Samples](data/pool_count_distribution.png)
+
 This count was obtained through the following process:
 
 1. For each district, iterate over all its sample points and detect the pools in them using the trained detector
@@ -54,8 +56,25 @@ To better interact with the folium map, just access `data/pool_density_map.html`
 
 ![Pool density by district](./data/folium2.png)
 
-### 4. Statistical analysis
+### 4. Can we predict pool count?
+From `data/predict_pools.ipynb` we can notice that there is a negative correlation between a district's mean socioeconomic index (that ranges from 1 - great to 6 - very low) and its pool count, which makes sense intuitively:
 
+![Samples](data/correlation.png)
+
+#### Is it possible to predict the pool count of a point (latitude, longitude) and its socioeconomic index?
+
+After experimenting with classical ML models, like Linear Regression, Random Forests and SVR, we found that we can somewhat model this relation. The best fitting model found through Grid Search was SVR, reaching 1.1088 RMSE on test set:
+
+![SVR](data/best_svr.png)
+
+Even though this is naturally a regression problem, we can approximate it to a classification since the targets are discrete and limited:
+
+The best SVR scored:
+* 0.6308 Accuracy
+* 0.6136 Precision (weighted)
+* 0.6308 Recall (weighted)
+
+Those results cannot be used directly since they need better metrics, but they indicate that predicting pool count using purely the coordinates and the index is a promising idea that can be further explored.
 
 ### 5. Steps to reproduce
 #### 5.1 Setup the environment
@@ -71,3 +90,5 @@ Run `uv sync`
 4. Run `models/train.ipynb` to train the object detector
 
 5. Run `data/get_pool_count.ipynb` to access the pool count logic and visualization
+
+6. Run `data/predict_pools.ipynb` to access the data analysis for the pool distribution, correlations and train regression models that predict pool count based on location and its socioeconomic index
