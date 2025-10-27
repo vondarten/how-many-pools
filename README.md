@@ -58,6 +58,10 @@ To better interact with the folium map, just access `data/pool_density_map.html`
 
 ![Pool density by district](./data/folium2.png)
 
+Districts with most pools:
+![District comparison](./data/district_comparison.png)
+
+
 ### 4. Can we predict pool count?
 From `data/predict_pools.ipynb` we can notice that there is a negative correlation between a district's mean socioeconomic index (that ranges from 1 - great to 6 - very low) and its pool count, which makes sense intuitively:
 
